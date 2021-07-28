@@ -1,5 +1,53 @@
 .App {
-  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.meio {
+  justify-content: center;
+  display: block;
+  max-width: 700px;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 20px;
+  padding: 30px;
+  margin: 80px auto;
+  min-height: 790px;
+}
+
+h1 {
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+h1>svg {
+  margin-right: 10px;
+}
+
+.placeholder {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  border: 1px solid rgb(238, 238, 238);;
+  flex: 1 1 0%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  background-color: purple;
+  color:rgb(238, 238, 238);
+  border: 0px;
+  padding: 15px 20px;
+  margin-left: 10px;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -36,3 +84,4 @@
     transform: rotate(360deg);
   }
 }
+
