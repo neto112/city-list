@@ -1,10 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { readBuilderProgram } from 'typescript';
 
 function App() {
-  const [listaDeCep, setListaDeCep] = React.useState([
+  const [listaDeCep] = React.useState([
     "88330-060",
     "88020-100",
     "89015-480",
