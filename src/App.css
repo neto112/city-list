@@ -43,11 +43,12 @@ button {
   background-color: purple;
   color:rgb(238, 238, 238);
   border: 0px;
-  padding: 15px 20px;
+  padding: 0px 15px;
   margin-left: 10px;
   border-radius: 4px;
   align-items: center;
   justify-content: center;
+  font-size: 30px;
 }
 
 .App-logo {

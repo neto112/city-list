@@ -4,11 +4,12 @@ import './App.css';
 import { readBuilderProgram } from 'typescript';
 
 function App() {
-  const [cep, setCep] = React.useState([
+  const [listaDeCep, setListaDeCep] = React.useState([
     "88330-060",
     "88020-100",
     "89015-480",
-    "88137-900"
+    "88137-900",
+    "89010-300"
   ]);
 
   return (
@@ -22,9 +23,22 @@ function App() {
           <input placeholder="Digitar um CEP"></input>
           <button>+</button>
         </div>
+        <ul>
+          {listaDeCep.map((cep) => (
+            <li>{cep}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
+
+
 export default App;
+
+// 
+
+// const frutaElement = document.getElementsByClassName("App")[0];
+
+// frutaElement.innerHTML = ola.map(App => (``))
