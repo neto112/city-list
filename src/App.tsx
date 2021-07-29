@@ -2,13 +2,23 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  const [listaDeCep] = React.useState([
+  const [newZip, setNewZip] = React.useState("");
+  const [zipList, setZipList] = React.useState([
     "88330-060",
     "88020-100",
     "89015-480",
     "88137-900",
     "89010-300"
   ]);
+
+  const addNewZip = (opa: string) => {
+    const newZipList = [...zipList, opa];
+    setZipList(newZipList);
+  };
+
+  const addCepInput = () => {
+    addNewZip(newZip);
+  };
 
   return (
     <div className="App">
@@ -18,12 +28,17 @@ function App() {
           Cidades TOP</h1>
 
         <div className="placeholder">
-          <input placeholder="Digitar um CEP"></input>
-          <button>+</button>
+          <input 
+          placeholder="Digitar um CEP" 
+          onChange={(e) => setNewZip(e.target.value)} 
+          value={newZip}>
+          </input>
+
+          <button onClick={addCepInput}>+</button>
         </div>
         <ul>
-          {listaDeCep.map((cep) => (
-            <li>{cep}</li>
+          {zipList.map((severalZip) => (
+            <li>{severalZip}</li>
           ))}
         </ul>
       </div>
@@ -31,12 +46,4 @@ function App() {
   );
 }
 
-
-
 export default App;
-
-// 
-
-// const frutaElement = document.getElementsByClassName("App")[0];
-
-// frutaElement.innerHTML = ola.map(App => (``))
