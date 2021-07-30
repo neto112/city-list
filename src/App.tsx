@@ -2,39 +2,30 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  const [newZip, setNewZip] = React.useState("");
-  const [zipList, setZipList] = React.useState([
-    "88330-060",
-    "88020-100",
-    "89015-480",
-    "88137-900",
-    "89010-300"
-  ]);
-
-  const addNewZip = (opa: string) => {
-    const newZipList = [...zipList, opa];
-    setZipList(newZipList);
-  };
-
-  const addCepInput = () => {
-    addNewZip(newZip);
-  };
+  const [newZip, setNewZip] = React.useState<string>("");
+  const [zipList, setZipList] = React.useState<string[]>([]);
+  
 
   return (
     <div className="App">
       <div className="meio">
-        <h1><svg viewBox="0 0 480 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-          <path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg>
+        <h1><svg viewBox="0 0 20 20" height="2em" width="2em">
+          <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
+        </svg>
           Cidades TOP</h1>
 
         <div className="placeholder">
-          <input 
-          placeholder="Digitar um CEP" 
-          onChange={(e) => setNewZip(e.target.value)} 
-          value={newZip}>
-          </input>
+          <form onSubmit={event => {event.preventDefault(); 
+          setZipList([...zipList, newZip]);
+            }}
+          >
+            <input placeholder="Digitar um CEP" type="text"
+              onChange={event => setNewZip(event.target.value)}
+              value={newZip} required
+            />
 
-          <button onClick={addCepInput}>+</button>
+            <button type="submit">+</button>
+          </form>
         </div>
         <ul>
           {zipList.map((severalZip) => (
@@ -47,3 +38,47 @@ function App() {
 }
 
 export default App;
+
+// OK - A lista precisa começar vazia;
+// Está sendo possível adicionar um item em branco;
+// OK - Apertar tecla Enter para adicionar o item não está funcionando;
+// Está sendo possível adicionar itens repetidos.
+
+
+// Add os itens, porém se a lista ficar vazia, não funciona.
+// const addNewZip = (opa: string) => {
+//  const newZipList = [...zipList, opa];
+//  setZipList(newZipList);
+// };
+
+// const addCepInput = () => {
+//  addNewZip(newZip);
+// };
+
+// colocar uma tag de form terá acesso ao evento submit
+// que fica escutando o botão e permite o usuário add um new item
+// ao apertar a tecla Enter. P/ isso, add uma chamada
+// event.preventDefault()
+// porém, vai interferir um never[], para isso add string[].
+// Exibindo itens da lista 
+// {zipList.map((severalZip, index) => (
+// <li key={index}>{severalZip}</li>
+// ))}
+
+//<div className="placeholder">
+//<form
+//  onSubmit={event => {
+//    event.preventDefault();
+//    setZipList([...zipList, newZip]);
+//  }}
+//>
+//  <input
+//    placeholder="Digitar um CEP" type="text"
+//    onChange={event => setNewZip(event.target.value)}
+//    value={newZip}
+//  />
+//
+//  <button type="submit">+</button>
+//</form>
+//</div>
+//<ul>
