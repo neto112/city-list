@@ -15,6 +15,14 @@ function App() {
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>,
     callback: { (): void; (): any; }) => event.key === "Enter" && callback();
 
+  const handleKeyUp = (event: { currentTarget: { maxLength: number; value: any; }; }) => {
+    event.currentTarget.maxLength = 8;
+    let value = event.currentTarget.value;
+    value = value.replace(/\D/g, "");
+    setNewZip(value)
+    event.currentTarget.value = value;
+  }
+
   return (
     <div className="App">
       <div className="meio">
@@ -27,14 +35,15 @@ function App() {
 
         <div className="placeholder">
           <input
-            placeholder="Digitar um CEP" type="text"
-            onChange={(event) => setNewZip(event.target.value)}
+            type="text"
+            placeholder="Digitar um CEP"
+            onChange={handleKeyUp}
             value={newZip}
-            onKeyPress={(e) => onEnter(e, addNewZip)}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnter(e, addNewZip)}
           />
-
           <button onClick={addNewZip}>+</button>
         </div>
+
         <ul>{zipList.map((e) => (<li key={e}>{e}</li>))}</ul>
       </div>
     </div>
@@ -42,3 +51,7 @@ function App() {
 }
 
 export default App;
+
+// OK - Limitar o input para 8 caracteres (CEP tem 8 números)
+// Permitir digitar apenas números 
+// (se digitar letras ou símbolos, não pode aparecer nada)
