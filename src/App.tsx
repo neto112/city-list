@@ -15,12 +15,10 @@ function App() {
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>,
     callback: { (): void; (): any; }) => event.key === "Enter" && callback();
 
-  const handleKeyUp = (event: { currentTarget: { maxLength: number; value: any; }; }) => {
-    event.currentTarget.maxLength = 8;
+  const handleInputChange = (event: { currentTarget: { maxLength: number; value: any; }; }) => {
     let value = event.currentTarget.value;
     value = value.replace(/\D/g, "");
     setNewZip(value)
-    event.currentTarget.value = value;
   }
 
   return (
@@ -36,8 +34,9 @@ function App() {
         <div className="placeholder">
           <input
             type="text"
+            maxLength = "8"
             placeholder="Digitar um CEP"
-            onChange={handleKeyUp}
+            onChange={handleInputChange}
             value={newZip}
             onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnter(e, addNewZip)}
           />
@@ -53,5 +52,9 @@ function App() {
 export default App;
 
 // OK - Limitar o input para 8 caracteres (CEP tem 8 números)
-// Permitir digitar apenas números 
-// (se digitar letras ou símbolos, não pode aparecer nada)
+// OK - Permitir digitar apenas números 
+// OK - (se digitar letras ou símbolos, não pode aparecer nada)
+// OK - A lista precisa começar vazia;
+// OK - Está sendo possível adicionar um item em branco;
+// OK - Apertar tecla Enter para adicionar o item não está funcionando
+// OK - Está sendo possível adicionar itens repetidos.
