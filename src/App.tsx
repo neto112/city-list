@@ -5,13 +5,6 @@ function App() {
   const [zipList, setZipList] = React.useState<string[]>([]);
   const [newZip, setNewZip] = React.useState<string>("");
 
-  const addNewZip = () => {
-    const trimmed = newZip.trim();
-    if (trimmed && !zipList.includes(trimmed)) {
-      setZipList(zipList.concat(trimmed));
-    }
-  };
-
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>,
     callback: { (): void; (): any; }) => event.key === "Enter" && callback();
 
@@ -20,6 +13,22 @@ function App() {
     value = value.replace(/\D/g, "");
     setNewZip(value)
   }
+
+  React.useEffect(() => {
+    const localValue = Number(localStorage.getItem("listZip") || "");
+    setNewZip(String(localValue));
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem("listZip", newZip)
+  }, [newZip])
+
+  const addNewZip = () => {
+    const trimmed = newZip.trim();
+    if (trimmed && !zipList.includes(trimmed)) {
+      setZipList(zipList.concat(trimmed));
+    }
+  };
 
   return (
     <div className="App">
@@ -34,6 +43,7 @@ function App() {
         <div className="placeholder">
           <input
             type="text"
+            
             maxLength = "8"
             placeholder="Digitar um CEP"
             onChange={handleInputChange}
