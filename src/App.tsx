@@ -1,4 +1,5 @@
 import React from 'react';
+import cep from "cep-promise";
 import './App.css';
 
 function App() {
@@ -16,10 +17,16 @@ function App() {
 
   const addNewZip = () => {
     const trimmed = newZip.trim();
-    if (trimmed && !zipList.includes(trimmed)) {
-      setZipList(zipList.concat(trimmed));
-    }
+    cep(trimmed).then((dados: any) => {
+      console.log(dados);
+      setZipList(zipList.concat(dados));
+    });
   };
+
+//    if (trimmed && !zipList.includes(trimmed)) {
+//      setZipList(zipList.concat(trimmed));
+//    }
+  
 
   return (
     <div className="App">
@@ -42,11 +49,26 @@ function App() {
           <button onClick={addNewZip}>+</button>
         </div>
 
-        <ul>{zipList.map((e: any) => (<li key={e}>{e}</li>))}</ul>
+        <ul>
+          {zipList.map((itemDaLista: any) => (
+            <li key={itemDaLista.cep}>
+              <div>
+                <strong>{itemDaLista.city}</strong>
+              </div>
+              <div>
+                <small>{itemDaLista.cep}</small>
+              </div>
+              <span>
+                {itemDaLista.street}, {itemDaLista.neighborhood} -{" "}
+                {itemDaLista.state}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
-}
+}      
 
 export default App;
 
