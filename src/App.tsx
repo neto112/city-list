@@ -14,15 +14,6 @@ function App() {
     setNewZip(value)
   }
 
-  React.useEffect(() => {
-    const localValue = Number(localStorage.getItem("listZip") || "");
-    setNewZip(String(localValue));
-  }, []);
-
-  React.useEffect(() => {
-    localStorage.setItem("listZip", newZip)
-  }, [newZip])
-
   const addNewZip = () => {
     const trimmed = newZip.trim();
     if (trimmed && !zipList.includes(trimmed)) {
@@ -39,12 +30,10 @@ function App() {
           </svg>
           Cidades TOP
         </h1>
-
         <div className="placeholder">
-          <input
+           <input
             type="text"
-            
-            maxLength = "8"
+            maxLength={8}
             placeholder="Digitar um CEP"
             onChange={handleInputChange}
             value={newZip}
@@ -53,7 +42,7 @@ function App() {
           <button onClick={addNewZip}>+</button>
         </div>
 
-        <ul>{zipList.map((e) => (<li key={e}>{e}</li>))}</ul>
+        <ul>{zipList.map((e: any) => (<li key={e}>{e}</li>))}</ul>
       </div>
     </div>
   );
@@ -61,10 +50,14 @@ function App() {
 
 export default App;
 
-// OK - Limitar o input para 8 caracteres (CEP tem 8 números)
-// OK - Permitir digitar apenas números 
-// OK - (se digitar letras ou símbolos, não pode aparecer nada)
-// OK - A lista precisa começar vazia;
-// OK - Está sendo possível adicionar um item em branco;
-// OK - Apertar tecla Enter para adicionar o item não está funcionando
-// OK - Está sendo possível adicionar itens repetidos.
+// <ul className="quadrado">
+// <li>
+//   <div>
+//     <strong>city</strong>
+//   </div>
+//   <div>
+//     <small>cep</small>
+//   </div>          
+//     <span>street, neighborhood - state</span>
+// </li>
+// </ul> 
