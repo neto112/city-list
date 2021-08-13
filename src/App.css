@@ -12,12 +12,6 @@
   min-height: 790px; 
 }
 
-.meio>.quadrado {
-  border: 2px solid rgba(var(--b6a, 219, 219, 219));
-  text-align: center;
-  margin-left: 4px;
-}
-
 .placeholder {
   margin-top: 30px;
   justify-content: center;
@@ -34,8 +28,6 @@ h1 {
 h1>svg {
   margin-right: 10px;
 }
-
-
 
 input {
   border: 1px solid rgb(238, 238, 238);
@@ -61,11 +53,15 @@ ul {
   list-style: none;
   margin-top: 30px;
   margin-left: -30px;
+  border: 2px solid rgba(var(--b6a, 219, 219, 219));
+  text-align: center;
+  margin-left: 4px;
 }
 
 li {
   border-bottom: 1px solid rgb(238, 238, 238);
   padding: 15px 0px;
+
 
 }
 

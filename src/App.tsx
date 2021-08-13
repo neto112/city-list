@@ -1,6 +1,7 @@
 import React from 'react';
 import cep from "cep-promise";
 import './App.css';
+import ItemCidade from './ItemCidade';
 
 function App() {
   const [zipList, setZipList] = React.useState<string[]>([]);
@@ -51,18 +52,7 @@ function App() {
 
         <ul>
           {zipList.map((itemDaLista: any) => (
-            <li key={itemDaLista.cep}>
-              <div>
-                <strong>{itemDaLista.city}</strong>
-              </div>
-              <div>
-                <small>{itemDaLista.cep}</small>
-              </div>
-              <span>
-                {itemDaLista.street}, {itemDaLista.neighborhood} -{" "}
-                {itemDaLista.state}
-              </span>
-            </li>
+<ItemCidade itemDaLista={itemDaLista}/>
           ))}
         </ul>
       </div>
