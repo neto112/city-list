@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cep from "cep-promise";
 import './App.css';
 import ItemCidade from './ItemCidade';
 
 function App() {
-  const [zipList, setZipList] = React.useState<string[]>([]);
-  const [newZip, setNewZip] = React.useState<string>("");
+  const [zipList, setZipList] = useState<string[]>([]);
+  const [newZip, setNewZip] = useState<string>("");
+
+  useEffect(() => {
+    const localValue = localStorage.getItem("Saved");
+    if (localValue) {
+      setZipList(JSON.parse(localValue));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("Saved", JSON.stringify(zipList));
+  }, [zipList]);
 
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>,
     callback: { (): void; (): any; }) => event.key === "Enter" && callback();
@@ -19,15 +30,11 @@ function App() {
   const addNewZip = () => {
     const trimmed = newZip.trim();
     cep(trimmed).then((dados: any) => {
-      console.log(dados);
-      setZipList(zipList.concat(dados));
+      if (trimmed && !zipList.includes(trimmed)) {
+        setZipList(zipList.concat(trimmed, dados));
+      }
     });
   };
-
-//    if (trimmed && !zipList.includes(trimmed)) {
-//      setZipList(zipList.concat(trimmed));
-//    }
-  
 
   return (
     <div className="App">
@@ -61,15 +68,3 @@ function App() {
 }      
 
 export default App;
-
-// <ul className="quadrado">
-// <li>
-//   <div>
-//     <strong>city</strong>
-//   </div>
-//   <div>
-//     <small>cep</small>
-//   </div>          
-//     <span>street, neighborhood - state</span>
-// </li>
-// </ul> 
