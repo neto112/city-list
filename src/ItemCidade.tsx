@@ -1,17 +1,17 @@
-import "./App.css";
-import "./App.tsx";
+import { CepInfo } from "./App"
+import "./App.css"
 
-export default function ItemCidade(props:any) {
-  return <li key={props.itemDaLista.cep}>
+export default function ItemCidade(props: { cepInfo: CepInfo}) {
+  return <li key={props.cepInfo.cep}>
   <div>
-    <strong>{props.itemDaLista.city}</strong>
+    <strong>{props.cepInfo.city}</strong>
   </div>
   <div>
-    <small>{props.itemDaLista.cep}</small>
+    <small>{props.cepInfo.cep}</small>
   </div>
   <span>
-    {props.itemDaLista.street}, {props.itemDaLista.neighborhood} -{" "}
-    {props.itemDaLista.state}
+    {props.cepInfo.street}, {props.cepInfo.neighborhood} -{" "}
+    {props.cepInfo.state}
   </span>
   </li>
-};
+}

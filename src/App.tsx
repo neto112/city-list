@@ -1,40 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import cep from "cep-promise";
-import './App.css';
-import ItemCidade from './ItemCidade';
+import React, { useEffect, useState } from 'react'
+import cep from "cep-promise"
+import './App.css'
+import ItemCidade from './ItemCidade'
+
+export interface CepInfo {
+  cep: string
+  city: string
+  neighborhood: string
+  service: string
+  state: string
+  street: string
+}
 
 function App() {
-  const [zipList, setZipList] = useState<string[]>([]);
-  const [newZip, setNewZip] = useState<string>("");
+  const [zipList, setZipList] = useState<CepInfo[]>([])
+  const [newZip, setNewZip] = useState<string>("")
 
   useEffect(() => {
-    const localValue = localStorage.getItem("Saved");
+    const localValue = localStorage.getItem("Saved")
     if (localValue) {
-      setZipList(JSON.parse(localValue));
+      setZipList(JSON.parse(localValue))
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("Saved", JSON.stringify(zipList));
-  }, [zipList]);
+    localStorage.setItem("Saved", JSON.stringify(zipList))
+  }, [zipList])
 
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>,
-    callback: { (): void; (): any; }) => event.key === "Enter" && callback();
+    callback: { (): void; (): any; }) => event.key === "Enter" && callback()
 
-  const handleInputChange = (event: { currentTarget: { maxLength: number; value: any; }; }) => {
-    let value = event.currentTarget.value;
-    value = value.replace(/\D/g, "");
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { value } = event.target
+    value = value.replace(/\D/g, "")
     setNewZip(value)
   }
 
   const addNewZip = () => {
-    const trimmed = newZip.trim();
-    cep(trimmed).then((dados: any) => {
-      if (trimmed && !zipList.includes(trimmed)) {
-        setZipList(zipList.concat(trimmed, dados));
+    const trimmed = newZip.trim()
+    cep(trimmed).then((dados: CepInfo) => {
+      const foundIndex = zipList.findIndex(zip => zip.cep === trimmed)
+      if (foundIndex === -1) {
+        setZipList(zipList.concat(dados))
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="App">
@@ -58,13 +68,13 @@ function App() {
         </div>
 
         <ul>
-          {zipList.map((itemDaLista: any) => (
-<ItemCidade itemDaLista={itemDaLista}/>
+          {zipList.map((itemDaLista: CepInfo) => (
+<ItemCidade cepInfo={itemDaLista}/>
           ))}
         </ul>
       </div>
     </div>
-  );
+  )
 }      
 
 export default App;
